@@ -2,7 +2,7 @@
 
 ### Problem Statement
 
-Make a small backend application which can generate and emit an encrypted data stream over a socket, listens to incoming data stream on a socket, decrypts and decodes it, save to a time series db and then emit the saved data to a small frontend app. Backend services can be in any language (Node JS is preferred, but use Go or any other that you are comfortable with).
+Make a small backend application which can generate and emit an encrypted data stream over a socket, listens to incoming data stream on a socket, decrypts and decodes it, save to a time series db and then emit the saved data to a small frontend app. Backend services need to be in NodeJS.
 
 
 ## Emitter service
@@ -43,11 +43,11 @@ The emitter service should connect to the listener service over sockets and peri
 
 The Listener service will allow an emitter to connect to it via sockets. On receipt of the encrypted message stream, the listener should decrypt this string and retrieve the data in the payload. Validate the objects using the secret_key to ensure data integrity. If the data integrity of any object is compromised then discard that operation and move on to the next in the queue.
 
-On successful object data integrity validation, add a timestamp to that object and save it to a mongoDB collection modelled for saving time-series data where each document should be corresponding to the minute in which it is received. e.g. for data received for a person between 14:00 to 14:01 all records are added in a single document as a timeseries. Design the schema is such a manner to allow for optimal performance for aggregation timeseries queries.
+On successful object data integrity validation, add a timestamp to that object and save it to a mongoDB collection (or any other DB of your choice) modelled for saving time-series data where each document should be corresponding to the minute in which it is received. e.g. for data received for a person between 14:00 to 14:01 all records are added in a single document as a timeseries. Design the schema is such a manner to allow for optimal performance for aggregation timeseries queries.
 
 ## Frontend
 
-All the valid data saved should be displayed in a real-time manner on a small frontend app along with the success rate for data transmission and decoding
+All the valid data saved should be displayed in a real-time manner on a small frontend app along with the success rate for data transmission and decoding. This is purely for testing the functionality and performance of the code. If not comfortable, feel free to skip the minor FE app and instead display the values on console. 
 
 ### How will the assignment be evaluated?
 - Functionality: Is the app functional and performant?
